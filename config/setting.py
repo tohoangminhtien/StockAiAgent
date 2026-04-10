@@ -21,10 +21,19 @@ class DBProvider(str, Enum):
 
 
 class Setting(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
+    model_config = SettingsConfigDict(
+        env_file=".env", env_file_encoding="utf-8", extra="ignore"
+    )
 
+    # LLM Configuration
     LLM_PROVIDER: LLMProvider = LLMProvider.AZURE
     LLM_TEMPERATURE: float = 0.2
+
+    # Tools configuration
+    TOOL_CALL_LIMIT: int = 3
+
+    # Memory configuration
+    NUM_HISTORY_RUNS: int = 3
 
     # OpenAI
     OPENAI_API_KEY: Optional[str] = None
@@ -69,4 +78,3 @@ class Setting(BaseSettings):
         if isinstance(value, str):
             return value.strip().lower()
         return value
-
