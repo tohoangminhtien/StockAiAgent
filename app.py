@@ -4,7 +4,6 @@ from db.db_manager import DbManager
 from memory.user_memory import UserMemory
 from agent.fast_responder_agent import FastAgent
 from agno.tools.reasoning import ReasoningTools
-from utils.metrics import print_response_summary
 
 
 if __name__ == "__main__":
@@ -14,7 +13,7 @@ if __name__ == "__main__":
 
     # Initialize the database manager and memory manager
     db_manager = DbManager(setting)
-    user_memory = UserMemory(db_manager, llm_manager, use_custom_instructions=True)
+    user_memory = UserMemory(db_manager, llm_manager)
 
     # Initialize the reasoning tools
     reasoning_tools = ReasoningTools(enable_analyze=False)
@@ -30,7 +29,7 @@ if __name__ == "__main__":
         debug_level=2,
     )
 
-    question = "Thủ đô của Việt Nam ở đâu? Tại sao bạn biết điều đó? Bạn có thể giải thích không?"
+    question = "Xin chào."
     # Lấy RunOutput object
     response = agent.run(question, debug_mode=True, debug_level=2)
     # print_response_summary(response)
