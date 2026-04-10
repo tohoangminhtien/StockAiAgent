@@ -1,1 +1,2 @@
-Only user name, age
+Only the user's personal information
+Save as Vietnamese

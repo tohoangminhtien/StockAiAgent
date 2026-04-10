@@ -16,17 +16,17 @@ class UserMemory(MemoryManager):
         optimize_on_init: bool = False,
         **kwargs,
     ):
-        system_message = None
+        additional_instructions = None
         memory_capture_instructions = None
 
         if use_custom_instructions:
-            system_message = self.load_file("memory_system_msg.txt")
+            additional_instructions = self.load_file("memory_system_msg.txt")
             memory_capture_instructions = self.load_file("memory_capture_prompt.txt")
 
         super().__init__(
             db=db.get_db(),
             model=model.get_model(),
-            system_message=system_message,
+            additional_instructions=additional_instructions,
             memory_capture_instructions=memory_capture_instructions,
             **kwargs,
         )
@@ -43,14 +43,14 @@ class UserMemory(MemoryManager):
     # Helpers
     # -------------------
 
-    def load_file(self, filename: str) -> list[str]:
+    def load_file(self, filename: str) -> str:
         project_root = Path(__file__).resolve().parent.parent
         path = project_root / "prompt" / filename
 
         if not path.exists():
             raise FileNotFoundError(f"File not found: {path}")
 
-        return path.read_text(encoding="utf-8").splitlines()
+        return path.read_text(encoding="utf-8")
 
     def get_instructions(self):
         return self.get_system_message()
