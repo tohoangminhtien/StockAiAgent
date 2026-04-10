@@ -1,5 +1,5 @@
 from langchain.agents import initialize_agent, AgentType
-from tools.tools import get_tools
+from tools.stock_tools import get_tools
 import os
 from langchain_openai import ChatOpenAI
 

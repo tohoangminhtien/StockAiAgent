@@ -5,7 +5,7 @@ from typing import Optional
 from vnstock import Vnstock
 from rapidfuzz import process, fuzz
 from datetime import date
-from train_model import predict_stock
+from tools.train_model import predict_stock
 
 
 def check_symbol(user_input: str):
