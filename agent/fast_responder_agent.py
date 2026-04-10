@@ -27,12 +27,15 @@ class FastAgent(Agent):
         )
 
         self.name = "FastResponderAgent"
-        self.system_message = self.load_system_message()
+        self.additional_context = self.load_system_message()
         self.tool_call_limit = setting.TOOL_CALL_LIMIT
+
+        # Add message history to context
         self.add_history_to_context = True
-        # self.update_memory_on_run = True
-        # self.enable_agentic_memory = True
         self.num_history_runs = setting.NUM_HISTORY_RUNS
+
+        # Enable memory tools for agentic memory management
+        self.enable_agentic_memory = True
         self.markdown = True
 
     def load_system_message(self):
@@ -44,4 +47,4 @@ class FastAgent(Agent):
                 f"System message file not found. Checked: {prompt_path}"
             )
 
-        return prompt_path.read_text(encoding="utf-8").splitlines()
+        return prompt_path.read_text(encoding="utf-8")
