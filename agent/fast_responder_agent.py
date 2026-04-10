@@ -22,21 +22,16 @@ class FastAgent(Agent):
             model=model.get_model(),
             memory_manager=memory_manager,
             tools=tools,
+            name="FastResponderAgent",
+            additional_context=self.load_system_message(),
+            tool_call_limit=setting.TOOL_CALL_LIMIT,
+            add_history_to_context=True,
+            num_history_runs=setting.NUM_HISTORY_RUNS,
+            # enable_agentic_memory=True,
+            markdown=True,
             *args,
             **kwargs,
         )
-
-        self.name = "FastResponderAgent"
-        self.additional_context = self.load_system_message()
-        self.tool_call_limit = setting.TOOL_CALL_LIMIT
-
-        # Add message history to context
-        self.add_history_to_context = True
-        self.num_history_runs = setting.NUM_HISTORY_RUNS
-
-        # Enable memory tools for agentic memory management
-        self.enable_agentic_memory = True
-        self.markdown = True
 
     def load_system_message(self):
         project_root = Path(__file__).resolve().parent.parent
