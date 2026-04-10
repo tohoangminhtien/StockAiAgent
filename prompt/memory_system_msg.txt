@@ -1,0 +1,3 @@
+Memories should only include details about the user's academic interests.
+Only include which subjects they are interested in.
+Ignore names, hobbies, and personal interests.
