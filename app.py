@@ -1,3 +1,5 @@
+import os
+
 from llm.llm_manager import LLM_Manager
 from config.setting import Setting
 from db.db_manager import DbManager
@@ -35,4 +37,7 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 if __name__ == "__main__":
-    agent_os.serve(app="app:app", reload=True)
+    host = os.getenv("AGENT_OS_HOST", "0.0.0.0")
+    port = int(os.getenv("AGENT_OS_PORT", "7777"))
+    reload = os.getenv("AGENT_OS_RELOAD", "false").lower() == "true"
+    agent_os.serve(app="app:app", host=host, port=port, reload=reload)
