@@ -1,55 +1,131 @@
-# AGENTIC AI FOR VIET NAM STOCK
+# Agentic AI for Vietnam Stock
 
-## Mô tả:
-Agentic AI for Vietnam Stock is an advanced AI-powered application designed to assist Vietnamese stock investors in making smarter and more efficient trading decisions. The application leverages cutting-edge Agentic AI architecture to collect, analyze, and predict market trends based on real-time data, including stock prices and trading volumes.
+> A multi-agent system for querying Vietnamese stock symbols, retrieving real-time market data, and predicting next-day opening prices using AI reasoning.
 
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Docker](https://img.shields.io/badge/Docker-supported-informational)](https://www.docker.com/)
 
+![Demo](./assets/ui.png)
 
-![demo](assets/demo.png)
+---
 
-## Key Features
-- Access to over 1,500 Vietnamese stock symbols.
-- Retrieve real-time stock information such as floor price, ceiling price, opening price, closing price, and trading volume.
-- View general stock and company information.
-- Automatically predict the next day’s opening price for stocks based on the latest market data.
+## Features
 
+- **1,500+ Stock Symbols** — Full coverage of Vietnamese stock market tickers
+- **Real-Time Market Data** — Retrieve floor price, ceiling price, opening price, closing price, and trading volume
+- **Company Information** — Access general stock and company profiles
+- **Next-Day Price Prediction** — AI-driven prediction of the next day's opening price based on the latest market data
 
-## Core Tools of Agentic AI
-- *check_symbol*: Validates whether a stock symbol is correct.
-- *get_stock_price*: Retrieves real-time stock prices.
-- *company_information*: Fetches general company/stock details.
-- *get_today*: Provides the current time to ensure real-time awareness for the AI agent.
-- *predict_tomorrow*: Predicts the stock price for the next trading day.
-- *fallback_tool*: Allows the agent to respond with "I don't know" for out-of-scope queries.
+---
 
-## Example Step by Step
-### Example 1: Look up
-![example1](assets/look_up_agent.png)
+## Configuration
 
-### Example 2: Predict
-![example2](assets/predict_agent.png)
+All options are configurable via `.env`.
+
+### LLM Backends
+
+| Provider | Notes |
+|---|---|
+| **Azure OpenAI** | Recommended |
+| OpenAI | Fully supported |
+| Gemini | Fully supported |
+| Hugging Face | Fully supported |
+
+> **Note:** Most LLMs do not expose a native reasoning interface. A *tool-based thinking* technique is used as a drop-in replacement, achieving comparable performance.
+
+### Database Backends
+
+| Database | Notes |
+|---|---|
+| MongoDB | Fully supported |
+| **SQLite** | Recommended |
+| JSON | Lightweight option |
+| In-Memory | For ephemeral/testing use |
+
+---
 
 ## Installation
-1. Install dependencies
+
+Choose one of the following methods:
+
+1. [Manual Installation](#manual-installation)
+2. [Docker (Recommended)](#docker-recommended)
+
+---
+
+### Manual Installation
+
+#### 1. Clone the Repository
+
 ```bash
-pip install -r requirements.txt
+git clone https://github.com/tohoangminhtien/StockAiAgent
+cd StockAiAgent
 ```
-2. Set up OPENAI API Key
-In **chat_ui.py**, enter your OpenAI API key:
-python
 
-```python
-OPENAI_API_KEY = "your_open_ai_key"
-```
-3. Run the UI
+#### 2. Install Dependencies
+
+This project recommends using [`uv`](https://github.com/astral-sh/uv) for environment and dependency management.
+
 ```bash
-streamlit run chat_ui.py
+uv venv
 ```
 
-## Version
-**v1.0**
+Activate the virtual environment:
 
-## Upcoming features
-- Optimizing docstrings for better agent comprehension and reduced API costs.
-- Adding more user-supportive tools.
-- Enhancing the UI/UX experience.
+```bash
+# Windows
+.venv\Scripts\activate
+
+# Linux / macOS
+source .venv/bin/activate
+```
+
+Install dependencies:
+
+```bash
+uv pip install -r requirements.txt
+```
+
+#### 3. Start the Backend Server
+
+```bash
+uv run app.py
+```
+
+Expected output:
+
+```
+INFO:     Uvicorn running on http://localhost:7777 (Press CTRL+C to quit)
+INFO:     Started reloader process [14532] using WatchFiles
+INFO:     Started server process [22516]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+```
+
+The server will start listening on port `7777`.
+
+#### 4. Connect the Frontend
+
+This project uses [AgnoOS](https://os.agno.com/) as the UI layer.
+
+1. Log in to [AgnoOS](https://os.agno.com/)
+2. Select **Connect your AgentOS**
+3. Enter the endpoint URL: `localhost:7777`
+4. Set the agent **Name** to: `FastResponderAgent`
+
+Your credentials are saved after the first connection — no re-entry required on subsequent sessions.
+
+![UI](./assets/ui.png)
+
+---
+
+### Docker (Recommended)
+
+> Docker setup documentation is in progress. Check back for updates.
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
