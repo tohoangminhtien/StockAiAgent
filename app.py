@@ -27,8 +27,12 @@ agent = FastAgent(
     setting=setting,
     tools=[reasoning_tools],
 )
-agent_os = AgentOS(agents=[agent], interfaces=[AGUI(agent=agent)])
+agent_os = AgentOS(
+    agents=[agent],
+    interfaces=[AGUI(agent=agent)],
+    db=db_manager.get_db(),
+)
 app = agent_os.get_app()
 
 if __name__ == "__main__":
-    agent_os.serve(app="basic:app", reload=True)
+    agent_os.serve(app="app:app", reload=True)
