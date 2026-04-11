@@ -37,8 +37,6 @@ class UserMemory(MemoryManager):
                 apply=True,
             )
 
-        print("Prompts loaded successfully.")
-
     # -------------------
     # Helpers
     # -------------------
